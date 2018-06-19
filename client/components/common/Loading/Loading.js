@@ -11,8 +11,25 @@ export default class loading extends React.Component {
 
     render() {
 
+        const enter = {
+            from: {
+                transform: 'translateX(100%)'
+            },
+            to: {
+                transform: 'translate(0%)'
+            }
+        };
+        const leave = {
+            from: {
+                transform: 'translateX(0%, -50%)'
+            },
+            to: {
+                transform: 'translateX(-100%)'
+            }
+        };
+
         return (
-            <Transition show={this.props.show}
+            <Transition show={this.props.show} enter={enter} leave={leave}
                         style={{ position: 'fixed', top: 0, left: 0, minHeight: '100vh', width: '100%' }}>
                 <div className={classnames({ Loading: true })}>
 

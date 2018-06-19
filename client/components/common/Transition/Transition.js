@@ -25,9 +25,9 @@ export default class Transition extends React.Component {
             if(this.props.show) {
                 this.setState({ show: true });
                 setTimeout(() => this.setState({ currentStyle: this.state.enterToStyle }), 0);
-                setTimeout(() => this.setState({ currentStyle: this.state.leaveFromStyle }), this.props.timeout || defaultTransitionDuration);
             } else {
-                this.setState({ currentStyle: this.state.leaveToStyle });
+                this.setState({ currentStyle: this.state.leaveFromStyle });
+                setTimeout(() => this.setState({ currentStyle: this.state.leaveToStyle }), (this.props.timeout || defaultTransitionDuration) / 2);
                 setTimeout(() => this.setState({ show: false, currentStyle: this.state.enterFromStyle }), this.props.timeout || defaultTransitionDuration);
             };
         };

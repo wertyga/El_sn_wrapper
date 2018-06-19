@@ -25,6 +25,10 @@ export default class Cabinet extends React.Component {
         setTimeout(() => this.setState({ loading: !this.state.loading }), 3000)
     };
 
+    onChange = e => {
+        this.setState({ [e.target.name]: e.target.value })
+    };
+
 
     render() {
 

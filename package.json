@@ -19,6 +19,7 @@
     "express": "^4.15.4",
     "express-session": "^1.15.6",
     "mongoose": "^4.11.13",
+    "react-transition-group": "^2.3.1",
     "webpack-node-externals": "^1.7.2",
     "winston": "^2.3.1"
   },

@@ -3,7 +3,7 @@
 .UpperMenu
   background-color: $mainColor
   width: 100%
-  padding: 20px 30px
+  padding: 20px 5vw
   display: flex
   justify-content: space-between
   position: relative
@@ -13,8 +13,6 @@
     &.ping
       border-right: 2px solid $fontColorLight
   .circles
-    //transform: rotate(0deg)
-    //transition: transform .5s
     line-height: 100%
     padding: 0 10px
     display: flex
@@ -38,3 +36,6 @@
       span:last-child
         transform: translate(150%, -130%)
         transition-delay: .1s
+
+  .FlipMenu
+    right: 5vw

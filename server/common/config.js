@@ -1,7 +1,7 @@
 import path from 'path';
 
 const env = process.env.NODE_ENV;
-const dbName = 'Some_dbName';
+const dbName = 'crypto_signer';
 
 export default {
     PORT: 3000,

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import FlipMove from 'react-flip-move';
 import classnames from 'classnames';
+import { CSSTransition } from 'react-transition-group';
 
 import Loading from '../common/Loading/Loading';
 
@@ -24,23 +25,13 @@ export default class Cabinet extends React.Component {
         setTimeout(() => this.setState({ loading: !this.state.loading }), 3000)
     };
 
-    render() {
 
-        const enter = {
-            from: { opacity: 0 },
-            to: { opacity: 1 }
-        };
-        const leave = {
-            from: { opacity: 1 },
-            to: { opacity: 0 }
-        };
+    render() {
 
         return (
             <div className="Cabinet">
 
-                <FlipMove enterAnimation="fade" leaveAnimation="fade" duration={500}>
-                    {this.state.loading && <Loading />}
-                </FlipMove>
+                <Loading show={this.state.loading}/>
 
                 <form onSubmit={this.onSubmit}>
                     <input type="text"

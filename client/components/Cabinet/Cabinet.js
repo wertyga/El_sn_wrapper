@@ -22,7 +22,7 @@ export default class Cabinet extends React.Component {
     onSubmit = e => {
         e.preventDefault();
         this.setState({ loading: !this.state.loading });
-        setTimeout(() => this.setState({ loading: !this.state.loading }), 3000)
+        setTimeout(() => this.setState({ loading: !this.state.loading }), 1000)
     };
 
     onChange = e => {

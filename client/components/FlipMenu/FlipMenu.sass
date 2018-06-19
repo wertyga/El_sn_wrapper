@@ -1,0 +1,24 @@
+@import '../../styles/vars'
+
+.FlipMenu
+  right: 10px
+  top: 90px
+  position: absolute
+  li
+    padding: 10px 0
+    background-color: $bgColor
+    white-space: nowrap
+    transform: translateX(150%)
+    transition: transform .5s
+    border-left: 1px solid $borderColor
+    border-bottom: 1px solid $borderColor
+    cursor: pointer
+    a
+      padding: 10px 30px 10px 15px
+    &:hover
+      background-color: $hoverColor
+  &.open
+    li
+      transform: translateX(0)
+
+

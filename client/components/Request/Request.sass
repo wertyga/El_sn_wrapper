@@ -1,1 +1,25 @@
+@import '../../styles/vars'
+
 .Request
+  padding: $paddingTop $paddingSide
+  label
+    margin-bottom: 5px
+  h2
+    text-transform: uppercase
+    color: $mainColor
+    margin-bottom: 20px
+  .content
+    display: flex
+    flex-direction: column
+    input
+      max-width: 300px
+      margin-bottom: 10px
+    textarea
+      margin-bottom: 30px
+      max-width: 600px
+      height: 300px
+    .btn
+      max-width: 200px
+  .error
+    text-align: left
+    margin-bottom: 10px

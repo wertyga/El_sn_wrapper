@@ -12,6 +12,7 @@ import session from 'express-session';
 
 // ****************** Import routes *************
 import auth from './routes/auth';
+import fetch from './routes/fetch';
 import externals from './routes/externalCredentials';
 
 //***********************************************
@@ -105,6 +106,7 @@ if(prod) {
 
     //******************************** Routes ***************************
     app.use('/auth', auth);
+    app.use('/fetch', fetch);
     app.use('/externals', externals);
 
     app.get('/*', (req, res) => {

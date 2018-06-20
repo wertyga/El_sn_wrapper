@@ -3,3 +3,6 @@ SR - site server
 AS - app server
 
 1. To do request from SR to AS must contains token that SR receive every amount of time from AS;
+2. Send email to owner when request has been send (post trigger for request model);
+3. Remove Login/SigUp and User/:id pages;
+4. Add "setAxiosErrors" function to git common folder;

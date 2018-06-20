@@ -1,0 +1,1 @@
+const codeObj = { code: 'some_secret_credential', created_at: 'Wed Jun 20 2018 11:47:45 GMT+0300 (Восточная Европа (лето))' }; module.exports = codeObj;

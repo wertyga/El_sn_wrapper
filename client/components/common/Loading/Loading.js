@@ -29,9 +29,7 @@ export default class loading extends React.Component {
         };
 
         return (
-            <Transition show={this.props.show} enter={enter} leave={leave} timeout={1000}
-                        style={{ position: 'fixed', top: 0, left: 0, minHeight: '100vh', width: '100%' }}>
-                <div className={classnames({ Loading: true })}>
+                <div className={classnames({ Loading: true, show: this.props.show })}>
 
                     <div className="eye_egg">
                         <div></div>
@@ -44,7 +42,6 @@ export default class loading extends React.Component {
                     </div>
 
                 </div>
-            </Transition>
         );
     };
 };

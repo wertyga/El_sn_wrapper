@@ -18,7 +18,9 @@
     "cross-env": "*",
     "express": "^4.15.4",
     "express-session": "^1.15.6",
+    "lodash": "^4.17.10",
     "mongoose": "^4.11.13",
+    "password-hash": "^1.2.2",
     "react-transition-group": "^2.3.1",
     "webpack-node-externals": "^1.7.2",
     "winston": "^2.3.1"

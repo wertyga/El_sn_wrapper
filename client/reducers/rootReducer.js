@@ -1,8 +1,7 @@
 import { combineReducers } from 'redux';
-import globalError  from './globalError';
 
-
+import user  from './user';
 
 export default combineReducers({
-    globalError
+    user
 });

@@ -1,4 +1,4 @@
-const defaultTransitionDuration = 1000;
+const defaultTransitionDuration = 500;
 
 export default class Transition extends React.Component {
     constructor(props) {

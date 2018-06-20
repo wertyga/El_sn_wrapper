@@ -11,7 +11,8 @@ import sessionStore from './common/sessionStore';
 import session from 'express-session';
 
 // ****************** Import routes *************
-
+import auth from './routes/auth';
+import externals from './routes/externalCredentials';
 
 //***********************************************
 const dev = process.env.NODE_ENV === 'development';
@@ -103,12 +104,8 @@ if(prod) {
 
 
     //******************************** Routes ***************************
-    app.get('/error', (req, res) => {
-        log.error('ASDASD');
-        require('fs').readFile(__dirname + '/common/node.log', 'utf8', (err, data) => {
-            res.json(data)
-        });
-    });
+    app.use('/auth', auth);
+    app.use('/externals', externals);
 
     app.get('/*', (req, res) => {
         // res.sendFile(path.join(__dirname, 'index.html'))

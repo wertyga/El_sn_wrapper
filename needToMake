@@ -1,0 +1,5 @@
+This site-server and app server will be different:
+SR - site server
+AS - app server
+
+1. To do request from SR to AS must contains token that SR receive every amount of time from AS;

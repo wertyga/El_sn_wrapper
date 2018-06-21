@@ -22,6 +22,7 @@ class Cabinet extends React.Component {
 
     onSubmit = e => {
         e.preventDefault();
+
         const sendObj = {
             username: {
                 field: this.state.username,
@@ -67,7 +68,7 @@ class Cabinet extends React.Component {
         return (
             <div className="Cabinet">
 
-                {this.state.loading && <Loading show={this.state.loading}/>}
+                <Loading show={this.state.loading}/>
 
                 <form onSubmit={this.onSubmit}>
                     {typeof this.state.errors === 'string' || this.state.errors.globalError && <div className="error">{this.state.errors.globalError}</div>}

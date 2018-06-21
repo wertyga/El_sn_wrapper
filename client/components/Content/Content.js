@@ -1,6 +1,15 @@
 import './Content.sass';
 
 export default class Content extends React.Component {
+
+    componentDidMount() {
+        document.getElementsByClassName('bg')[0].classList.add('root');
+    };
+
+    componentWillUnmount() {
+        document.getElementsByClassName('bg')[0].classList.remove('root');
+    };
+
     render() {
         return (
             <div className="Content">

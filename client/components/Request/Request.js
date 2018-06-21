@@ -4,7 +4,22 @@ import { request } from '../../actions/fetch';
 
 import validateInput from '../../../server/common/inputsValidation';
 
+import Loading from '../common/Loading/Loading';
+import Transition from '../common/Transition/Transition';
+
 import './Request.sass';
+
+const Modal = props => {
+    return (
+        React.createPortal(
+            <div className="Modal">
+                <p>Your request has been send</p>
+                <button className="btn primary">ok</button>
+            </div>,
+            document.getElementsByClassName('Request')[0]
+        )
+    );
+};
 
 class Request extends React.Component {
     constructor(props) {
@@ -15,6 +30,7 @@ class Request extends React.Component {
             message: '',
             wasSend: false,
             loading: false,
+            showModal: false,
             errors: {}
         };
     };
@@ -30,7 +46,7 @@ class Request extends React.Component {
             this.setState({ loading: true });
             this.props.request(checkObj)
                 .then(res => {
-                    this.setState({ loading: false });
+                    this.setState({ loading: false, email: '', message: '', showModal: true });
                 })
                 .catch(err => this.setState({
                     errors: setError(err),
@@ -47,10 +63,35 @@ class Request extends React.Component {
     };
 
     render() {
+
+        const modal = (
+            <div className="modal">
+                <p>Your request has been send</p>
+                <button className="btn primary" onClick={() => this.setState({ showModal: false })}>ok</button>
+            </div>
+        );
+        const enterModal = {
+            from: { opacity: 0, transform: 'translate(-50%, -150%)'},
+            to: { opacity: 1, transform: 'translate(-50%, -100%)'},
+        };
+        const leaveModal = {
+            from: enterModal.to,
+            to: enterModal.from
+        };
+
         return (
             <div className="Request">
                 <h2>Send request</h2>
 
+                <Loading show={this.state.loading}/>
+
+                <Transition
+                    show={this.state.showModal}
+                    enter={enterModal}
+                    leave={leaveModal}
+                >
+                    {modal}
+                </Transition>
                 <form onSubmit={this.onSubmit} className="content">
                     {this.state.errors.globalError && <div className="error">{this.state.errors.globalError}</div>}
 
@@ -61,6 +102,7 @@ class Request extends React.Component {
                            value={this.state.email}
                            onChange={this.onChange}
                            id="email_request"
+                           disabled={this.state.loading || this.state.showModal}
                     />
                     {this.state.errors.email && <div className="error">{this.state.errors.email}</div>}
 
@@ -70,10 +112,11 @@ class Request extends React.Component {
                         value={this.state.message}
                         onChange={this.onChange}
                         id="message_request"
+                        disabled={this.state.loading || this.state.showModal}
                     />
                     {this.state.errors.message && <div className="error">{this.state.errors.message}</div>}
 
-                    <button className="btn primary" type="submit" disabled={this.state.loading}>Send request</button>
+                    <button className="btn primary" type="submit" disabled={this.state.loading || this.state.showModal}>Send request</button>
                 </form>
             </div>
         );

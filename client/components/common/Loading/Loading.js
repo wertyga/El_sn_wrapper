@@ -1,3 +1,4 @@
+import ReactDOM from 'react-dom';
 import classnames from 'classnames';
 
 import Transition from '../Transition/Transition';
@@ -29,19 +30,28 @@ export default class loading extends React.Component {
         };
 
         return (
-                <div className={classnames({ Loading: true, show: this.props.show })}>
+            ReactDOM.createPortal(
+                <Transition
+                    style={{ width: '100vw', height: '100vh', position: 'fixed', top: 0, left: 0 }}
+                    show={this.props.show}
+                >
+                    <div className={classnames({ Loading: true, show: this.props.show })}>
 
-                    <div className="eye_egg">
-                        <div></div>
-                        <div></div>
-                        <div></div>
+                        <div className="eye_egg">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+
+                        <div className="name">
+                            <p>Loading...</p>
+                        </div>
+
                     </div>
+                </Transition>,
+                document.getElementById('app')
+            )
 
-                    <div className="name">
-                        <p>Loading...</p>
-                    </div>
-
-                </div>
         );
     };
 };

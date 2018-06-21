@@ -27,10 +27,10 @@ class App extends React.Component {
                 <div className="bg">
                     <div className="main_color"></div>
                     <div className="dark_color">
-                        <div className="icon">
-                            <img src={icon} alt="bg-icon"/>
-                            <p>Crypto_signer</p>
-                        </div>
+                        {/*<div className="icon">*/}
+                            {/*<img src={icon} alt="bg-icon"/>*/}
+                            {/*<p>Crypto_signer</p>*/}
+                        {/*</div>*/}
                     </div>
 
 

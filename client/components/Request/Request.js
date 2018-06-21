@@ -75,7 +75,7 @@ class Request extends React.Component {
             to: { opacity: 1, transform: 'translate(-50%, -100%)'},
         };
         const leaveModal = {
-            from: enterModal.to,
+            from: enterModal.from,
             to: enterModal.from
         };
 

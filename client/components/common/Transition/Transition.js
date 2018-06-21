@@ -9,7 +9,7 @@ export default class Transition extends React.Component {
             appear: false,
             enterFromStyle: this.props.enter ? this.props.enter.from : { opacity: 0 },
             enterToStyle: this.props.enter ? this.props.enter.to : { opacity: 1 },
-            leaveFromStyle: this.props.leave ? this.props.leave.from : { opacity: 1 },
+            leaveFromStyle: this.props.leave ? this.props.leave.from : { opacity: 0 },
             leaveToStyle: this.props.leave ? this.props.leave.to : { opacity: 0 },
 
             currentStyle: this.props.enter ? this.props.enter.from : { opacity: 0 }
@@ -49,7 +49,7 @@ export default class Transition extends React.Component {
         for(let i = 0; i < children.length; i++) {
             const item = children[i];
             Object.keys(styles).forEach(prop => {
-                item.style[prop] =  styles[prop]
+                item.style[prop] =  styles[prop];
                 if(initial) {
                     item.style['transition-duration'] = `${(this.props.timeout || defaultTransitionDuration) / 2}ms`;
                 };

@@ -1,5 +1,33 @@
 @import '../../styles/vars'
 
 .Content
+  position: relative
   padding: $paddingTop $paddingSide
   color: $fontColorLight
+  min-height: 100vh
+  .switch_mark
+    position: absolute
+    right: $paddingSide
+    bottom: $paddingTop
+    display: inline-flex
+    justify-content: flex-end
+    padding: 30px
+    background-color: $bgColor
+    box-shadow: 0px 5px 10px rgba(0,0,0, .6)
+    cursor: pointer
+    border-radius: 50%
+    transition: background-color .5s, transform .5s
+    &.last
+      transform: rotate(180deg)
+    &:hover
+      background: $secondaryColor
+      .angle
+        border-right-color: $bgColor
+        border-bottom-color: $bgColor
+  .angle
+    transition: border-right-color .5s, border-bottom-color .5s
+    width: 20px
+    height: 20px
+    border-right: 4px solid $fontColor
+    border-bottom: 4px solid $fontColor
+    transform: rotate(45deg) translate(-15%, -15%)

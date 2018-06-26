@@ -47,7 +47,7 @@ export default class Transition extends React.Component {
             Object.keys(styleObj).forEach(prop => {
                 item.style[prop] = styleObj[prop];
                 if(!transition) {
-                    item.style['transition-duration'] = `${this.props.timeout || defaultTransitionDuration}ms`;
+                    item.style['transition-duration'] = `${(this.props.timeout || defaultTransitionDuration) / 2}ms`;
                 } else {
                     item.style['transition-duration'] = `${transition}ms`;
                 }

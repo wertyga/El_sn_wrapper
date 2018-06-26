@@ -13,18 +13,18 @@ export default class loading extends React.Component {
 
         const enter = {
             from: {
-                transform: 'translate(50%, -50%)'
+                transform: 'translate(100%)'
             },
             to: {
-                transform: 'translateX(0%)'
+                transform: 'translate(0%)'
             }
         };
         const leave = {
             from: {
-                transform: 'translate(0%, -50%)'
+                transform: 'translate(0)'
             },
             to: {
-                transform: 'translate(-100%, 0%)'
+                transform: 'translate(-100%)'
             }
         };
 

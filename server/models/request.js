@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 
+import sendEmailRequest from '../common/functions/email';
+
 const RequestSchema = mongoose.Schema({
     email: {
         type: String
@@ -8,5 +10,9 @@ const RequestSchema = mongoose.Schema({
         type: String
     }
 }, { timestamps: true});
+
+RequestSchema.post('save', function(doc) {
+    sendEmailRequest(doc)
+});
 
 export default mongoose.model('request', RequestSchema);

@@ -1,0 +1,12 @@
+Tue Jun 26 2018 18:43:27 GMT+0300 (Восточная Европа (лето)) 
+   ERROR:  D:\React\El_sn_wrapper\server\common\functions\email.js': Error: connect ETIMEDOUT 108.177.15.108:465
+
+Tue Jun 26 2018 18:43:48 GMT+0300 (Восточная Европа (лето)) 
+   ERROR:  D:\React\El_sn_wrapper\server\common\functions\email.js': Error: connect ETIMEDOUT 108.177.15.108:465
+
+Tue Jun 26 2018 18:44:10 GMT+0300 (Восточная Европа (лето)) 
+   ERROR:  D:\React\El_sn_wrapper\server\common\functions\email.js': Error: connect ETIMEDOUT 108.177.15.108:465
+
+Tue Jun 26 2018 18:47:52 GMT+0300 (Восточная Европа (лето)) 
+   INFO: email: wertyga18@gmail.com; message: ww
+

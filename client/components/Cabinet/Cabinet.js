@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import { login } from '../../actions/auth';
 
-import inputValidation from '../../../server/common/inputsValidation';
+import inputValidation from '../../../server/common/functions/inputsValidation';
 
 import Loading from '../common/Loading/Loading';
 
@@ -19,6 +19,10 @@ class Cabinet extends React.Component {
             errors: {}
         };
     };
+
+    // componentWillUnmount() {
+    //     this.loadingRef.remove();
+    // };
 
     onSubmit = e => {
         e.preventDefault();

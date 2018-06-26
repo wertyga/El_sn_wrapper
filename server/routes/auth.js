@@ -8,11 +8,11 @@ const routes = require('express').Router();
 routes.post('/login', validateFields, (req, res) => {
     const { username, password} = req.body;
     // Send to AS token and req.body;
-
+    // And get from it user data
     User.findOne({ $or: [{ username }, { email: username }]})
         .then(user => {
             if(!user) {
-                res.status(400).json({ errors: { globalError: 'User is not exist' }});
+                res.status(400).json({ errors: { username: 'User is not exist' }});
             } else {
                 if(hash.verify(password, user.hashPassword)) {
                     res.json(userFields(user));

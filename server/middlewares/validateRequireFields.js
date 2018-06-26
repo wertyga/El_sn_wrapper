@@ -1,4 +1,4 @@
-import validateInputs from '../common/inputsValidation';
+import validateInputs from '../common/functions/inputsValidation';
 
 export default (req, res, next) => {
     const { errors, isValid } = validateInputs(req.body);

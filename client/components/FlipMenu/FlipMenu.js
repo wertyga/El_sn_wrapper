@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import ReactDOM from 'react-dom';
 
 import classnames from 'classnames';
 
@@ -16,6 +17,10 @@ const menuItems = [
     {
         title: 'Send request',
         to: '/request'
+    },
+    {
+        title: 'Credentials',
+        to: '/credentials'
     }
 ];
 
@@ -47,6 +52,7 @@ export default class FlipMenu extends React.Component {
 
     render() {
         return (
+            ReactDOM.createPortal(
             <ul className={classnames({ FlipMenu: true, open: this.props.showMenu })} ref={node => this.mainRef = node}>
                 {menuItems.map((item, i) => (
                     <li key={item.title}
@@ -57,7 +63,9 @@ export default class FlipMenu extends React.Component {
                         <Link to={item.to}>{item.title}</Link>
                     </li>)
                 )}
-            </ul>
+            </ul>,
+                document.getElementById('app')
+            )
         );
     };
 };

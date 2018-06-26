@@ -1,11 +1,19 @@
 This site-server and app server will be different:
-SR - site server
+SS - site server
 AS - app server
 
-1. To do request from SR to AS must contains token that SR receive every amount of time from AS;
+1. To do request from SS to AS must contains token that SR receive every amount of time from AS;
 2. Send email to owner when request has been send (post trigger for request model);
 3. Remove Login/SigUp and User/:id pages;
-4. Add "setAxiosErrors" function to git common folder;
+4. Add "setAxiosErrors"(client/common/commonFunctions) function to git common folder;
+5. Update initialFolder with added: {
+    client/common.commonFunction/setAxiosErrors.js: add it to client/common/globals.js,
+    client/index.js: "favicon" in client/index.js,
+    server/index.js: ser.listen in test env,
+    test_setup: *,
+    server/common/functions/inputsValidation.js: *,
+    server/common/log.js: *
+}
 
 
 Wc.Technologies

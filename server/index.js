@@ -6,15 +6,13 @@ import cluster from 'cluster';
 import http from 'http';
 
 import config from './common/config';
+import './common/mongoose';
 const log = require('./common/log')(module);
-import sessionStore from './common/sessionStore';
-import session from 'express-session';
 
 // ****************** Import routes *************
 import auth from './routes/auth';
 import fetch from './routes/fetch';
 import externals from './routes/externalCredentials';
-
 //***********************************************
 const dev = process.env.NODE_ENV === 'development';
 const test = process.env.NODE_ENV === 'test';
@@ -41,7 +39,7 @@ if(prod && cluster.isMaster) {
 } else {
     //******************************** Run server ***************************
 
-    server.listen(config.PORT, () => console.log(`Server run on ${config.PORT} port`));
+    if(!test) server.listen(config.PORT, () => console.log(`Server run on ${config.PORT} port`));
 
     // *******************************************************************
 };
@@ -94,15 +92,6 @@ if(prod) {
     app.use(bodyParser.json());
     if(!dev) app.use(express.static(path.join(__dirname, '..', 'client', 'static')));
     app.use(express.static(path.join(__dirname, config.uploads.directory)));
-    app.use(session({
-        secret: config.session.secret,
-        saveUninitialized: false,
-        resave: true,
-        key: config.session.key,
-        cookie: config.session.cookie,
-        store: sessionStore
-    }));
-
 
     //******************************** Routes ***************************
     app.use('/auth', auth);
@@ -110,14 +99,13 @@ if(prod) {
     app.use('/externals', externals);
 
     app.get('/*', (req, res) => {
-        // res.sendFile(path.join(__dirname, 'index.html'))
-
         res.send(`
             <!DOCTYPE html>
             <html lang="en">
             <head>
                 <meta charset="UTF-8">
-                <title>Title</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <title>Crypto signer</title>
             </head>
             <body>
             

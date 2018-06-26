@@ -12,6 +12,8 @@ import './common/globals';
 import rootReducer from './reducers/rootReducer';
 import './styles/index.sass';
 
+import favicon from '../icons/crypto_signer.png';
+
 let store;
 const dev = process.env.NODE_ENV === 'development';
 if(dev) {
@@ -27,6 +29,12 @@ if(dev) {
         applyMiddleware(thunk)
     );
 };
+
+const link = document.createElement('link');
+link.setAttribute('rel', "shortcut icon");
+link.setAttribute('href', favicon);
+link.setAttribute('type', "image/png");
+document.head.appendChild(link);
 
 ReactDOM.render (
     <BrowserRouter>

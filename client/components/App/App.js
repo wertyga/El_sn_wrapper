@@ -2,9 +2,8 @@ import { Route, Switch } from 'react-router-dom';
 
 import routes from '../../common/routes';
 
-import icon from '../../../icons/crypto_signer.png';
-
 import UpperMenu from '../UpperMenu/UpperMenu';
+import Credentials from '../Credentials/Credentials';
 
 import './App.sass';
 
@@ -41,6 +40,7 @@ class App extends React.Component {
                 <Switch>
                     {routes.map((item, i) => <Route key={i} {...item}/>)}
                 </Switch>
+
             </div>
         );
     }

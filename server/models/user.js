@@ -1,9 +1,7 @@
 import mongoose from 'mongoose';
 import hash from 'password-hash';
 
-import fetchFields from '../common/compileNeedFields';
-
-import Pair from './pair';
+import fetchFields from '../common/functions/compileNeedFields';
 
 
 let UserSchema = new mongoose.Schema({ //User Schema
@@ -44,42 +42,6 @@ let UserSchema = new mongoose.Schema({ //User Schema
     }
 });
 
-UserSchema.static('populateAllFields', function(searchFieldObj) { // Get all user fields e.g. user.tradePairs.populate('titleId') and user.percents
-    return this.findOne(searchFieldObj)
-        .populate('percents.percentId')
-        .then(user => {
-            if(!user) {
-                return false;
-            };
-            return Pair.populateByTitle(user.tradePairs)
-                .then(pairs => {
-                    const notNullableTradePairs = pairs.filter(item => !!item);
-                    const notNullablePercents = user.percents.filter(item => !!item.percentId);
-                    let isModify = false;
-                    if(notNullableTradePairs.length !== user.tradePairs.length) {
-                        user.tradePairs = notNullableTradePairs.map(item => item._id);
-                        isModify = true;
-                    };
-                    if(notNullablePercents.length !== user.percents.length) {
-                        user.percents = notNullablePercents.map(item => ({ percentId: item._id, isSeen: item.isSeen }));
-                        isModify = true;
-                    };
-                    if(isModify) {
-                        return user.save()
-                            .then(() => ({
-                                ...userFields(user),
-                                tradePairs: notNullableTradePairs,
-                                percents: notNullablePercents
-                            }));
-                    } else {
-                        return {
-                            ...user._doc,
-                            tradePairs: pairs
-                        };
-                    };
-                })
-        })
-});
 
 const UserModel = mongoose.model('user', UserSchema);
 

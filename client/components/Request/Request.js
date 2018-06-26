@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import { request } from '../../actions/fetch';
 
-import validateInput from '../../../server/common/inputsValidation';
+import validateInput from '../../../server/common/functions/inputsValidation';
 
 import Loading from '../common/Loading/Loading';
 import Transition from '../common/Transition/Transition';

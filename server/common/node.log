@@ -1,2 +1,0 @@
-{"level":"error","message":"ASDASD","label":"G:\\REACTJS\\InitialFolder\\server\\index.js","timestamp":"2018-04-15T17:56:43.294Z"}
-{"level":"error","message":"failed to connect to server [localhost:27017] on first connect [MongoError: connect ECONNREFUSED 127.0.0.1:27017]","label":"common/mongoose.js","timestamp":"2018-06-19T19:05:38.718Z"}

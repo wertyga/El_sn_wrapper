@@ -4,6 +4,7 @@ import Cabinet from '../components/Cabinet/Cabinet';
 import Request from '../components/Request/Request';
 import SignUp from '../components/SignUp/SignUp';
 import UserPage from '../components/UserPage/UserPage';
+import Credentials from '../components/Credentials/Credentials';
 import NotFoundPage from '../components/404/404';
 
 export default [
@@ -27,6 +28,10 @@ export default [
     {
         path: '/sign-up',
         component: SignUp
+    },
+    {
+        path: '/credentials',
+        component: Credentials
     },
     {
         path: '/user/:id',

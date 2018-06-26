@@ -10,7 +10,7 @@ class UserPage extends React.Component {
     };
 
     componentDidMount() {
-        if(isEmpty(this.props.user) || this.props.user._id !== this.props.match.params.id) this.props.history.push('/');
+        if(isEmpty(this.props.user) || this.props.user._id !== this.props.match.params.id) this.props.history.push('/cabinet');
     };
 
     render() {

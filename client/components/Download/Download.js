@@ -5,6 +5,10 @@ export default class Download extends React.Component {
         return (
             <div className="Download">
                 <h2>Download</h2>
+
+                <div className="content">
+                    <p>Content</p>
+                </div>
             </div>
         );
     };

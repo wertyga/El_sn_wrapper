@@ -1,13 +1,14 @@
-import { Link } from 'react-router-dom';
-import FlipMove from 'react-flip-move';
-import classnames from 'classnames';
-import { CSSTransition } from 'react-transition-group';
+import { connect } from 'react-redux';
+
+import { login } from '../../actions/auth';
+
+import inputValidation from '../../../server/common/functions/inputsValidation';
 
 import Loading from '../common/Loading/Loading';
 
 import './Cabinet.sass';
 
-export default class Cabinet extends React.Component {
+class Cabinet extends React.Component {
     constructor() {
         super();
 
@@ -21,12 +22,47 @@ export default class Cabinet extends React.Component {
 
     onSubmit = e => {
         e.preventDefault();
-        this.setState({ loading: !this.state.loading });
-        setTimeout(() => this.setState({ loading: !this.state.loading }), 1000)
+
+        const sendObj = {
+            username: {
+                field: this.state.username,
+                require: true
+            },
+            password: {
+                field: this.state.password,
+                require: true
+            }
+        };
+
+        const {isValid, errors} = inputValidation(sendObj);
+        if(!isValid) {
+            this.setState({ errors });
+        } else {
+            this.setState({ loading: true });
+            this.props.login(sendObj)
+                .then(user => {
+                    this.setState({ loading: false });
+                    this.props.history.push(`/user/${user._id}`)
+                })
+                .catch(err => {
+                    let error =
+                        (err.response.data && err.response.data.errors) ?
+                            err.response.data.errors :
+                            (err.response.data ? { globalError: err.response.data } : { globalError: err.message});
+                    if(err.response && typeof err.response.data === 'string' && err.response.data.indexOf('ECONNREFUSED') !== -1) error = { globalError: 'Network disabled'};
+                    this.setState({
+                        loading: false,
+                        errors: error
+                    })
+                })
+        };
     };
 
     onChange = e => {
-        this.setState({ [e.target.name]: e.target.value })
+        this.setState({
+            [e.target.name]: e.target.value,
+            errors: { ...this.state.errors, [e.target.name]: '', globalError: '' }
+        });
     };
 
 
@@ -35,9 +71,12 @@ export default class Cabinet extends React.Component {
         return (
             <div className="Cabinet">
 
+
+
                 <Loading show={this.state.loading}/>
 
                 <form onSubmit={this.onSubmit}>
+                    {this.state.errors.globalError && <div className="error">{this.state.errors.globalError}</div>}
                     <input type="text"
                            name="username"
                            onChange={this.onChange}
@@ -53,10 +92,12 @@ export default class Cabinet extends React.Component {
                     {this.state.errors.password && <div className="error">{this.state.errors.password}</div>}
 
                     <button className="btn primary" disabled={this.state.loading} type="submit">Log in</button>
-                    <button className="btn primary" disabled={this.state.loading} onClick={() => this.props.history.push('/sign-up')}>Sign up</button>
+                    {/*<button className="btn primary" disabled={this.state.loading} onClick={() => this.props.history.push('/sign-up')}>Sign up</button>*/}
                 </form>
 
             </div>
         );
     };
 };
+
+export default connect(null, { login })(Cabinet);

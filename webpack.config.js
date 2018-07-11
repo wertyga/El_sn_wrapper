@@ -1,14 +1,16 @@
 const webpack = require('webpack');
 const path = require('path');
+const nodeExternals = require('webpack-node-externals');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
-module.exports = {
-
+const browserConfig = {
     entry: {
         bundle: path.join(__dirname, 'client/index.js')
     },
 
     output: {
-        path: path.join(__dirname, 'production/client/static'),
+        path: path.join(__dirname, 'public', 'static'),
         publicPath:  '/',
         filename: '[name].js'
     },
@@ -17,20 +19,24 @@ module.exports = {
         rules: [
             {
                 test: /\.css$/,
-                loaders: ['style-loader', 'css-loader']
+                use: ExtractTextPlugin.extract({
+                    use: [{ loader: 'css-loader' }]
+                })
             },
 
             {
                 test: /\.sass$/,
-                loaders: ['style-loader', 'css-loader', 'sass-loader']
-
+                use: ExtractTextPlugin.extract({
+                    use: [{ loader: 'css-loader' }, { loader: 'sass-loader'}]
+                })
             },
 
             {
                 test: /(.woff2|.woff|.eot|.ttf|.otf)$/,
                 loader: 'file-loader',
-                query: {
-                    limit: 10000
+                options: {
+                    name: "media/[name].[ext]",
+                    publicPath: url => url.replace(/public/, "")
                 }
             },
 
@@ -42,46 +48,102 @@ module.exports = {
 
             {
                 test: /\.(gif|png|jpeg|jpg|svg)$/i,
-                loaders: [ {
-                    loader: 'file-loader',
-                    query: {
-                        limit: 10000
-                    }
-                },
-
+                loaders: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: "media/[name].[ext]",
+                            publicPath: url => url.replace(/public/, "")
+                        }
+                    },
                     {
                         loader: 'image-webpack-loader',
                         query: {
-                            progressive: true,
-                            optimizationLevel: 7,
-                            interlaced: false,
-
                             mozjpeg: {
-                                quality: 65
+                                progressive: true,
                             },
-
-                            pngquant:{
-                                quality: "65-90",
-                                speed: 4
+                            gifsicle: {
+                                interlaced: false,
                             },
-
-                            svgo:{
-                                plugins: [
-                                    {
-                                        removeViewBox: false
-                                    },
-                                    {
-                                        removeEmptyAttrs: false
-                                    }
-                                ]
+                            optipng: {
+                                optimizationLevel: 4,
                             },
-
-
-
-                        },
+                            pngquant: {
+                                quality: '75-90',
+                                speed: 3,
+                            },
+                        }
                     }
                 ]
+            }
+
+        ]
+    },
+
+    plugins: [
+        new ExtractTextPlugin({
+            filename: "css/main.css"
+        }),
+        new webpack.optimize.OccurrenceOrderPlugin(),
+        new webpack.NoEmitOnErrorsPlugin(),
+        new webpack.ProvidePlugin({
+            'React': 'react',
+            "PropTypes":"prop-types"
+        }),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+        })
+    ]
+};
+
+
+const serverConfig = {
+    entry: {
+        server: path.join(__dirname, 'server/index.js')
+    },
+    target: 'node',
+    node: {
+        __dirname: false,
+        __filename: false
+    },
+    externals: [nodeExternals()],
+    output: {
+        path: path.join(__dirname, 'public', 'server'),
+        filename: 'server.js',
+        libraryTarget: "commonjs2"
+    },
+
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: 'css-loader/locals'
             },
+
+            {
+                test: /\.sass$/,
+                loaders: ['css-loader', 'sass-loader']
+            },
+
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                loaders: 'babel-loader'
+            },
+
+            {
+                test: /\.(gif|png|jpeg|jpg|svg|woff2|woff|eot|ttf|otf)$/i,
+                loaders: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: "media/[name].[ext]",
+                            publicPath: url => url.replace(/public/, ""),
+                            emitFile: false
+                        }
+                    }
+                ]
+            }
 
         ]
     },
@@ -92,13 +154,21 @@ module.exports = {
         new webpack.ProvidePlugin({
             'React': 'react',
             "PropTypes":"prop-types"
-        }),
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
         })
-    ],
+    ]
+};
 
-    resolve: {
-        extensions: ['.js', '.jsx']
-    }
-}
+if(process.env.NODE_ENV === 'production') {
+    browserConfig.plugins.push(new UglifyJsPlugin());
+    serverConfig.plugins.push(new UglifyJsPlugin());
+};
+
+module.exports = [browserConfig, serverConfig];
+
+// Output folder structure:
+// /public
+//  /static
+//   *bundle.js
+//   /media - media files
+//   /css - main.css
+// *server.js

@@ -4,8 +4,8 @@ body
   box-sizing: border-box
   margin: 0
   font-size: $fontSize
-  user-select: none
-  overflow: hidden
+  //user-select: none
+  overflow-x: hidden
   min-height: 100vh
 
 *
@@ -54,7 +54,7 @@ button, .btn
   border-radius: 3px
   cursor: pointer
   margin: 5px 0
-  //box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4)
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4)
   &.primary
     background-color: $mainColor
   &.secondary
@@ -72,14 +72,20 @@ button, .btn
     //box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.4)
     background-color: $mainColorDark
 
-input
+input, textarea
   color: $fontColor
   outline: none
   padding: 10px 10px
   border: 1px solid $borderColor
   border-radius: 3px
+textarea
+  resize: none
+
 
 .error
   color: $dangerColor
   width: 100%
   text-align: center
+
+
+@import './media.sass'

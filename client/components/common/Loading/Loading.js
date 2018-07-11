@@ -13,38 +13,40 @@ export default class loading extends React.Component {
 
         const enter = {
             from: {
-                transform: 'translate(100%)'
+                transform: 'translate(50%, -50%)'
             },
             to: {
-                transform: 'translate(0%)'
+                transform: 'translateX(0%)'
             }
         };
         const leave = {
             from: {
-                transform: 'translate(0)'
+                transform: 'translate(0%, -50%)'
             },
             to: {
-                transform: 'translate(-100%)'
+                transform: 'translate(-100%, 0%)'
             }
         };
 
         return (
-            <Transition show={this.props.show} enter={enter} leave={leave} timeout={1000}
-                        style={{ position: 'fixed', top: 0, left: 0, minHeight: '100vh', width: '100%' }}>
-                <div className={classnames({ Loading: true })}>
+                <Transition
+                    style={{ width: '100vw', height: '100vh', position: 'fixed', top: 0, left: 0 }}
+                    show={this.props.show}
+                >
+                    <div className={classnames({ Loading: true, show: this.props.show })}>
 
-                    <div className="eye_egg">
-                        <div></div>
-                        <div></div>
-                        <div></div>
+                        <div className="eye_egg">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+
+                        <div className="name">
+                            <p>Loading...</p>
+                        </div>
+
                     </div>
-
-                    <div className="name">
-                        <p>Loading...</p>
-                    </div>
-
-                </div>
-            </Transition>
+                </Transition>
         );
     };
 };

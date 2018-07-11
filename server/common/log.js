@@ -1,23 +1,48 @@
-import path from 'path';
+import fs from 'fs';
+import util from 'util';
+import config from './config';
 
-import winston from 'winston';
+class Logger {
+    constructor(filename) {
+        this.pathName = __filename;
+        this.stat = util.promisify(fs.stat);
+        this.writeFile = util.promisify(fs.writeFile);
+        this.appendFile = util.promisify(fs.appendFile);
+    };
 
-function getLogger(module) {
-    let pathName = module.filename.split('/').slice(-2).join('/');
-
-    return new winston.Logger({
-        transports:[
-            new winston.transports.Console({
-                colorize: true,
-                level: 'debug',
-                label: pathName
-            }),
-            new (winston.transports.File)({
-                filename: path.join(__dirname, 'node.log'),
-                label: pathName
+    error(msg, name) {
+        let message = `${new Date()} \n   ERROR: ${name ? name : ''} ${this.pathName}': ${msg}\n\n`;
+        return this.stat(config.logFile)
+            .then(stats => this.appendFile(config.logFile, message))
+            .catch(err => {
+                if(err.code === 'ENOENT') {
+                    return this.writeFile(config.logFile, message);
+                } else {
+                    throw err;
+                }
             })
-        ]
-    });
-}
+            .catch(err => console.error(`Can't write log file: ${err}`));
+    };
 
-module.exports = getLogger;
+    info(msg, name) {
+        let message = `${new Date()} \n   INFO: ${name ? name : ''} ${this.pathName}': ${msg}\n\n`;
+        return this.stat(config.logFile)
+            .then(stats => {
+                return this.appendFile(config.logFile, message);
+            })
+            .catch(err => {
+                if(err.code === 'ENOENT') {
+                    return this.writeFile(config.logFile, message);
+                } else {
+                    throw err;
+                }
+            })
+            .catch(err => console.error(`Can't write log file: ${err}`));
+    }
+};
+
+function logger(module) {
+    return new Logger(module)
+};
+
+module.exports = logger;

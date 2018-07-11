@@ -6,13 +6,15 @@ import cluster from 'cluster';
 import http from 'http';
 
 import config from './common/config';
+import './common/mongoose';
 const log = require('./common/log')(module);
-import sessionStore from './common/sessionStore';
-import session from 'express-session';
+
+// SSR
+import renderHTML from './common/functions/renderHtml';
+import App from '../client/components/App/App';
 
 // ****************** Import routes *************
-
-
+import fetch from './routes/fetch';
 //***********************************************
 const dev = process.env.NODE_ENV === 'development';
 const test = process.env.NODE_ENV === 'test';
@@ -39,14 +41,14 @@ if(prod && cluster.isMaster) {
 } else {
     //******************************** Run server ***************************
 
-    server.listen(config.PORT, () => console.log(`Server run on ${config.PORT} port`));
+    if(!test) server.listen(config.PORT, () => console.log(`Server run on ${config.PORT} port`));
 
     // *******************************************************************
 };
 
 
 //****************** Webpack ********************
-if (dev) {
+if (false) {
     const webpack = require('webpack');
     const webpackConfig = require('../webpack.dev.config');
     const webpackHotMiddleware = require('webpack-hot-middleware');
@@ -89,46 +91,17 @@ if(prod) {
     //************************************************************
 }
 
-    app.use(bodyParser.json());
-    if(!dev) app.use(express.static(path.join(__dirname, '..', 'client', 'static')));
-    app.use(express.static(path.join(__dirname, config.uploads.directory)));
-    app.use(session({
-        secret: config.session.secret,
-        saveUninitialized: false,
-        resave: true,
-        key: config.session.key,
-        cookie: config.session.cookie,
-        store: sessionStore
-    }));
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, '..', 'static')));
+
+//******************************** Routes ***************************
+
+app.use('/fetch', fetch);
 
 
-    //******************************** Routes ***************************
-    app.get('/error', (req, res) => {
-        log.error('ASDASD');
-        require('fs').readFile(__dirname + '/common/node.log', 'utf8', (err, data) => {
-            res.json(data)
-        });
-    });
-
-    app.get('/*', (req, res) => {
-        // res.sendFile(path.join(__dirname, 'index.html'))
-
-        res.send(`
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <title>Title</title>
-            </head>
-            <body>
-            
-                <div id="app"></div>
-            
-                <script src="/bundle.js"></script>
-            </body>
-            </html>
-        `);
-    });
+app.get('/*', (req, res) => {
+    res.send(renderHTML(req, <App />));
+});
 
 //******************************** Uncaught Exception ***************************
 
@@ -137,9 +110,3 @@ process.on('uncaughtException', function (err) {
     log.error(err.stack);
     process.exit(1);
 });
-
-
-
-
-
-

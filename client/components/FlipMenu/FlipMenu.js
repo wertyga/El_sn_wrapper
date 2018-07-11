@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-
+import ReactDOM from 'react-dom';
+import { createUniversalPortal } from 'react-portal-universal';
 import classnames from 'classnames';
 
 import './FlipMenu.sass';
@@ -9,13 +10,17 @@ const menuItems = [
         title: 'Download product',
         to: '/download'
     },
-    {
-        title: 'User cabinet',
-        to: '/cabinet'
-    },
+    // {
+    //     title: 'User cabinet',
+    //     to: '/cabinet'
+    // },
     {
         title: 'Send request',
         to: '/request'
+    },
+    {
+        title: 'Credentials',
+        to: '/credentials'
     }
 ];
 
@@ -47,17 +52,17 @@ export default class FlipMenu extends React.Component {
 
     render() {
         return (
-            <ul className={classnames({ FlipMenu: true, open: this.props.showMenu })} ref={node => this.mainRef = node}>
-                {menuItems.map((item, i) => (
-                    <li key={item.title}
-                        style={{ transitionDelay: `${i * 100}ms` }}
-                        onClick={(e) => this.props.setShowMenu(false)}
-                        className="menu_item"
-                    >
-                        <Link to={item.to}>{item.title}</Link>
-                    </li>)
-                )}
-            </ul>
+                <ul className={classnames({ FlipMenu: true, open: this.props.showMenu })} ref={node => this.mainRef = node}>
+                    {menuItems.map((item, i) => (
+                        <li key={item.title}
+                            style={{ transitionDelay: `${i * 100}ms` }}
+                            onClick={(e) => this.props.setShowMenu(false)}
+                            className="menu_item"
+                        >
+                            <Link to={item.to}>{item.title}</Link>
+                        </li>)
+                    )}
+                </ul>
         );
     };
 };

@@ -10,7 +10,7 @@ import login from '../../../screenshots/login_screen.png';
 import settings from '../../../screenshots/settings_screen.png';
 import main from '../../../screenshots/main_screen.png';
 import whales from '../../../screenshots/whales_screen.png';
-import bg from '../../../screenshots/binary-bitcoin-hd-wallpaper.jpg';
+// import bg from '../../../screenshots/binary-bitcoin-hd-wallpaper.jpg';
 
 import './Content.sass';
 
@@ -21,7 +21,7 @@ export default class Content extends React.Component {
         this.state = {
             content: '',
             count: 0,
-            totalPages: 3,
+            totalPages: 4,
             imageModal: false,
             image: ''
         };
@@ -159,13 +159,12 @@ export default class Content extends React.Component {
         );
         const support = (
             <div className="extention">
-                <h2>Suport project</h2>
+                <h2>Support project</h2>
                 <div className="content">
-                    <p>
-                        This project create by enthusiast team, that believe in future free economy.
-                        If you have found a bug or want make proposal to improve project send request from "Request tab".
-                        Also to support project you may donate to BTC wallet:
-                    </p>
+                    <p>This project create by enthusiast team, that believe in future free economy.</p>
+                    <p>If you have found a bug or want make proposal to improve project send request from "Request tab".</p>
+                    <br/>
+                    <p>Also to support project you may donate some bitcoin to BTC wallet:   <strong> 18ikPNYocCZxkpUGdubhHuF9wuE4w4tpyt</strong></p>
                 </div>
             </div>
         );
@@ -188,6 +187,7 @@ export default class Content extends React.Component {
                     {this.state.count === 0 && description}
                     {this.state.count === 1 && screenshots}
                     {this.state.count === 2 && extention_account}
+                    {this.state.count === 3 && support}
                 </FlipMove>
 
                 <div className={classnames({ switch_mark: true, last: this.state.count === this.state.totalPages - 1})}

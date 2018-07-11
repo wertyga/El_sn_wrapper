@@ -1,5 +1,3 @@
-// import icon from '../../../icons/crypto_signer.png';
-
 import './Credentials.sass';
 
 export default class Credentials extends React.Component {

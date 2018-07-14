@@ -21,7 +21,9 @@ routes.post('/unsubscribe', (req, res) => {
 
     axios.post(config.appHost + `/email/unsubscribing/${userID}/${emailToken}`)
         .then(() => res.json('success'))
-        .catch(err => res.status(err.response.status).json({ errors: err.response ? err.response.data.errors : err.message  }))
+        .catch(err => {
+            res.status(err.response ? err.response.status : 404).json({ errors: err.response ? err.response.data.errors : err.message  })
+        })
 });
 
 export default routes;

@@ -7,8 +7,8 @@
     "webpack": "cross-env NODE_ENV=development webpack -w",
     "test-jest": "cross-env NODE_ENV=test jest --watchAll --env=jsdom",
     "start:dev": "cross-env NODE_ENV=development nodemon --watch public --exec node -- public/server/server.js",
-    "build": "cross-env NODE_ENV=production webpack -p && babel server --out-dir production/server",
-    "start:prod": "cross-env NODE_ENV=production node --nouse-idle-notification --expose-gc production/server/index.js"
+    "build": "cross-env NODE_ENV=production webpack",
+    "start:prod": "cross-env NODE_ENV=production node --nouse-idle-notification --expose-gc public/server/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -20,9 +20,10 @@
     "express": "^4.15.4",
     "express-session": "^1.15.6",
     "lodash": "^4.17.10",
-    "mongoose": "^4.11.13",
+    "mongoose": "^5.2.3",
     "nodemailer": "^4.6.4",
     "password-hash": "^1.2.2",
+    "paypal-rest-sdk": "^1.8.1",
     "react-portal-universal": "^0.1.2",
     "react-transition-group": "^2.3.1",
     "webpack-node-externals": "^1.7.2",

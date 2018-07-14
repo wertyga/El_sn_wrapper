@@ -15,6 +15,7 @@ import App from '../client/components/App/App';
 
 // ****************** Import routes *************
 import fetch from './routes/fetch';
+import donate from './routes/donate';
 //***********************************************
 const dev = process.env.NODE_ENV === 'development';
 const test = process.env.NODE_ENV === 'test';
@@ -97,6 +98,7 @@ app.use(express.static(path.join(__dirname, '..', 'static')));
 //******************************** Routes ***************************
 
 app.use('/fetch', fetch);
+app.use('/donate', donate);
 
 
 app.get('/*', (req, res) => {

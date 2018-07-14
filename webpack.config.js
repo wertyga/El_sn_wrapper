@@ -160,7 +160,7 @@ const serverConfig = {
 
 if(process.env.NODE_ENV === 'production') {
     browserConfig.plugins.push(new UglifyJsPlugin());
-    serverConfig.plugins.push(new UglifyJsPlugin());
+    // serverConfig.plugins.push(new UglifyJsPlugin());
 };
 
 module.exports = [browserConfig, serverConfig];

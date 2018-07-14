@@ -7,6 +7,7 @@ import Request from '../components/Request/Request';
 import Credentials from '../components/Credentials/Credentials';
 import Email from '../components/Email/Email';
 import NotFoundPage from '../components/404/404';
+import Donate from '../components/Donate/Donate';
 
 export default [
     {
@@ -21,6 +22,15 @@ export default [
     {
         path: '/request',
         component: Request
+    },
+    {
+        path: '/donate',
+        exact: true,
+        component: Donate
+    },
+    {
+        path: '/donate/success/:fiatDonate',
+        component: Donate
     },
     {
         path: '/download',

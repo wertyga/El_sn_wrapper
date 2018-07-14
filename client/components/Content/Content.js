@@ -4,13 +4,11 @@ import ReactDOM from 'react-dom';
 import FlipMove from 'react-flip-move';
 import classnames from 'classnames';
 
-import login from '../../../screenshots/login_screen.png';
-// import power from '../../../screenshots/2.png';
-// import power1 from '../../../screenshots/3.png';
-import settings from '../../../screenshots/settings_screen.png';
-import main from '../../../screenshots/main_screen.png';
-import whales from '../../../screenshots/whales_screen.png';
-// import bg from '../../../screenshots/binary-bitcoin-hd-wallpaper.jpg';
+import login_screen from '../../screenshots/login_screen.jpg';
+import settings_screen from '../../screenshots/settings_screen.jpg';
+import main_screen from '../../screenshots/main_screen.jpg';
+import whales_screen from '../../screenshots/whales_screen.jpg';
+import power_screen from '../../screenshots/power_screen.jpg';
 
 import './Content.sass';
 
@@ -23,7 +21,8 @@ export default class Content extends React.Component {
             count: 0,
             totalPages: 4,
             imageModal: false,
-            image: ''
+            image: '',
+            imageModalStyle: {}
         };
     };
 
@@ -38,6 +37,15 @@ export default class Content extends React.Component {
     componentDidUpdate(prevProps, prevState) {
         if(this.state.imageModal !== prevState.imageModal) {
             document.body.style.overflowY = this.state.imageModal ? 'hidden' : 'initial';
+            // this.modalImageSizes();
+        };
+    };
+
+    modalImageSizes = () => {
+        if(this.modalImage) {
+            this.setState({
+                imageModalStyle: this.modalImage.offsetWidth > this.modalImage.offsetHeight ? { height: '100%' } : { width: '100%' }
+            });
         };
     };
 
@@ -96,7 +104,7 @@ export default class Content extends React.Component {
                 <div className="content">
                     <div className="screen_wrapper">
                         <div className="img_wrapper" onClick={this.zoomImage}>
-                            <img src={login} alt="login"/>
+                            <img src={login_screen} alt="login"/>
                         </div>
                         <div className="desc">
                             <h4>Login screen</h4>
@@ -106,16 +114,7 @@ export default class Content extends React.Component {
                     </div>
                     <div className="screen_wrapper">
                         <div className="img_wrapper" onClick={this.zoomImage}>
-                            <img src={whales} alt="whales"/>
-                        </div>
-                        <div className="desc">
-                            <h4>Whales orders screen</h4>
-                            <p>Screen with orders with big buy/sell orders helps you to see "wall" level for any coin</p>
-                        </div>
-                    </div>
-                    <div className="screen_wrapper">
-                        <div className="img_wrapper" onClick={this.zoomImage}>
-                            <img src={main} alt="main_screen"/>
+                            <img src={main_screen} alt="main_screen"/>
                         </div>
                         <div className="desc">
                             <h4>Main screen</h4>
@@ -124,7 +123,16 @@ export default class Content extends React.Component {
                     </div>
                     <div className="screen_wrapper">
                         <div className="img_wrapper" onClick={this.zoomImage}>
-                            <img src={main} alt="power_screen"/>
+                            <img src={whales_screen} alt="whales"/>
+                        </div>
+                        <div className="desc">
+                            <h4>Whales orders screen</h4>
+                            <p>Screen with orders with big buy/sell orders helps you to see "wall" level for any coin</p>
+                        </div>
+                    </div>
+                    <div className="screen_wrapper">
+                        <div className="img_wrapper" onClick={this.zoomImage}>
+                            <img src={power_screen} alt="power_screen"/>
                         </div>
                         <div className="desc">
                             <h4>Power screen</h4>
@@ -136,11 +144,20 @@ export default class Content extends React.Component {
                     </div>
                     <div className="screen_wrapper">
                         <div className="img_wrapper" onClick={this.zoomImage}>
-                            <img src={settings} alt="settings_screen"/>
+                            <img src={settings_screen} alt="settings_screen"/>
                         </div>
                         <div className="desc">
                             <h4>Settings screen</h4>
                             <p>In settings screen you may see and modify your account data</p>
+                        </div>
+                    </div>
+                    <div className="screen_wrapper">
+                        <div className="img_wrapper" onClick={this.zoomImage}>
+                            <img src={settings_screen} alt="settings_screen"/>
+                        </div>
+                        <div className="desc">
+                            <h4>Signup screen</h4>
+                            <p>Here you can fill the form for registration new user</p>
                         </div>
                     </div>
                 </div>
@@ -157,14 +174,14 @@ export default class Content extends React.Component {
                 </div>
             </div>
         );
-        const support = (
+        const donate = (
             <div className="extention">
                 <h2>Support project</h2>
                 <div className="content">
-                    <p>This project create by enthusiast team, that believe in future free economy.</p>
-                    <p>If you have found a bug or want make proposal to improve project send request from "Request tab".</p>
+                    <p>This project created by enthusiast team, that believe in future of free economy.</p>
+                    <p>If you have found a bug or want make proposal to improve project send request from "Request" tab.</p>
                     <br/>
-                    <p>Also to support project you may donate some bitcoin to BTC wallet:   <strong> 18ikPNYocCZxkpUGdubhHuF9wuE4w4tpyt</strong></p>
+                    <p>For donate please visit <Link to="/donate">This page</Link></p>
                 </div>
             </div>
         );
@@ -176,7 +193,7 @@ export default class Content extends React.Component {
                     ReactDOM.createPortal(
                             <div className="image_modal" onClick={this.zoomImage}>
                                 <div className="img_wrapper">
-                                    <img src={this.state.image} alt="modal_image"/>
+                                    <img ref={node => this.modalImage = node} src={this.state.image} alt="modal_image" style={this.state.imageModalStyle}/>
                                 </div>
                             </div>,
                         document.getElementById('app')
@@ -187,7 +204,7 @@ export default class Content extends React.Component {
                     {this.state.count === 0 && description}
                     {this.state.count === 1 && screenshots}
                     {this.state.count === 2 && extention_account}
-                    {this.state.count === 3 && support}
+                    {this.state.count === 3 && donate}
                 </FlipMove>
 
                 <div className={classnames({ switch_mark: true, last: this.state.count === this.state.totalPages - 1})}

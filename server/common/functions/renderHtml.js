@@ -1,11 +1,16 @@
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
+import configureStore from '../../../client/common/functions/configureStore';
 
 export default (req, Component, state) => {
+    const store = configureStore(state);
     const html = renderToString(
         <StaticRouter context={{}} location={req.url}>
+            <Provider store={store}>
                 {Component}
+            </Provider>
         </StaticRouter>
     );
 
@@ -17,7 +22,9 @@ export default (req, Component, state) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1">
                 <title>Crypto Signer</title>
                 <link rel="stylesheet" href="/css/main.css">
-              
+                 <script>
+                    window.__PRELOADED_STATE__ = ${JSON.stringify(store.getState()).replace(/</g, '\\\u003c')}
+                </script>
                <script src="/bundle.js" defer></script>
             </head>
             <body>

@@ -4,10 +4,11 @@ const env = process.env.NODE_ENV;
 const dbName = 'crypto_signer';
 
 export default {
-    appHost: 'http://localhost:3005',
-    PORT: env === 'test' ? 3001 : 3000,
+    appHost: 'http://46.101.209.10:3006',
+    thisHost: 'http://localhost:3005',
+    PORT: env === 'test' ? 3001 : 3005,
     mongoose: {
-        uri: env === 'test' ? `mongodb://localhost/${dbName}-test` : `mongodb://localhost/${dbName}`,
+        uri: `mongodb://localhost:27017/${env === 'test' ? dbName + '-test' : dbName}`,
         options: {
             server: {
                 socketOptions: {

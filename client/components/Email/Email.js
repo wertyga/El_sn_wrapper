@@ -26,7 +26,7 @@ export default class Email extends React.Component {
             .catch(err => {
                 this.setState({
                     loading: false,
-                    errors: setError(err)
+                    errors: err.response ? (err.response.data.errors || err.response.data) : err.message
                 });
             })
     };

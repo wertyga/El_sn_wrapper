@@ -6,11 +6,11 @@ const log = require('./log')(module);
 mongoose.set('debug', true);
 mongoose.Promise = require('bluebird');
 
-mongoose.connect(config.mongoose.uri, { useMongoClient: true }, (err, db) => {
+mongoose.connect(config.mongoose.uri, { useNewUrlParser: true }, (err, db) => {
     if(err) {
         log.error(err.message);
     } else {
-        db.once('open', () => console.log('-- Mongoose connect --'));
+        console.log('-- Mongoose connect --');
     };
 }), config.mongoose.options;
 

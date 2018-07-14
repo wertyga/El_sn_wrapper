@@ -21,6 +21,10 @@ const menuItems = [
     {
         title: 'Credentials',
         to: '/credentials'
+    },
+    {
+        title: 'Support project',
+        to: '/donate'
     }
 ];
 

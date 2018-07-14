@@ -1,9 +1,23 @@
+@media only screen and (max-width : 1200px)
+  .image_modal
+    .img_wrapper
+      img
+        width: initial
+        height: 100%
+
 @media only screen and (max-width : 660px)
   .Content
     .screen_wrapper
       flex-direction: column-reverse
     .desc
       margin-bottom: 20px
+
+  .Donate
+    & > div p
+      margin-left: 0
+      span
+        display: block
+        margin-top: 5px
 
 @media only screen and (max-width : 450px)
   .Content
@@ -18,4 +32,7 @@
       width: 100%
       height: 100%
       img
-        transform: rotate(-90deg) translate(-50%, 0%) scale(1.6)
+        transform: rotate(-90deg) scale(1.6)
+
+  .Donate
+    padding-left: 10px

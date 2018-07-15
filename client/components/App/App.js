@@ -10,14 +10,6 @@ import './App.sass';
 class App extends React.Component {
     constructor() {
         super();
-
-        this.state = {
-            res: ''
-        };
-    };
-
-    componentDidMount() {
-        // document.body.style.width = window.innerWidth + 'px';
     };
 
     render() {

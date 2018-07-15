@@ -17,6 +17,7 @@ import NotFoundPage from '../client/components/404/404';
 // ****************** Import routes *************
 import fetch from './routes/fetch';
 import donate from './routes/donate';
+import downloads from './routes/downloads';
 //***********************************************
 const dev = process.env.NODE_ENV === 'development';
 const test = process.env.NODE_ENV === 'test';
@@ -71,11 +72,13 @@ if(prod) {
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '..', 'static')));
+app.use(express.static(path.join(__dirname, '..')));
 
 //******************************** Routes ***************************
 
 app.use('/fetch', fetch);
 app.use('/donate', donate);
+app.use('/downloads', downloads);
 
 // Error handler with next()
 app.use((err, req, res, next) => {

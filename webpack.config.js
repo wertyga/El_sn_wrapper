@@ -32,7 +32,7 @@ const browserConfig = {
             },
 
             {
-                test: /(.woff2|.woff|.eot|.ttf|.otf)$/,
+                test: /(.woff2|.woff|.eot|.ttf|.otf|.webp)$/,
                 loader: 'file-loader',
                 options: {
                     name: "media/[name].[ext]",
@@ -132,7 +132,7 @@ const serverConfig = {
             },
 
             {
-                test: /\.(gif|png|jpeg|jpg|svg|woff2|woff|eot|ttf|otf)$/i,
+                test: /\.(gif|png|jpeg|jpg|svg|woff2|woff|eot|ttf|otf|webp)$/i,
                 loaders: [
                     {
                         loader: 'file-loader',

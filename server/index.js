@@ -12,6 +12,7 @@ const log = require('./common/log')(module);
 // SSR
 import renderHTML from './common/functions/renderHtml';
 import App from '../client/components/App/App';
+import NotFoundPage from '../client/components/404/404';
 
 // ****************** Import routes *************
 import fetch from './routes/fetch';
@@ -40,32 +41,8 @@ if(prod && cluster.isMaster) {
     });
 
 } else {
-    //******************************** Run server ***************************
-
     if(!test) server.listen(config.PORT, () => console.log(`Server run on ${config.PORT} port`));
-
-    // *******************************************************************
 };
-
-
-//****************** Webpack ********************
-if (false) {
-    const webpack = require('webpack');
-    const webpackConfig = require('../webpack.dev.config');
-    const webpackHotMiddleware = require('webpack-hot-middleware');
-    const webpackMiddleware = require('webpack-dev-middleware');
-
-    const compiler = webpack(webpackConfig);
-
-    app.use(webpackMiddleware(compiler, {
-        hot: true,
-        publicPath: webpackConfig.output.publicPath,
-        noInfo: true
-    }));
-    app.use(webpackHotMiddleware(compiler));
-}
-
-//**********************************************
 
 if(prod) {
 
@@ -99,6 +76,17 @@ app.use(express.static(path.join(__dirname, '..', 'static')));
 
 app.use('/fetch', fetch);
 app.use('/donate', donate);
+
+// Error handler with next()
+app.use((err, req, res, next) => {
+    if(err.donateError) {
+        return res.send(renderHTML(req, <App />, { globalErrors: err.donateError }));
+    } else if(err) {
+        return res.send(renderHTML(req, <NotFoundPage />));
+    } else {
+        return next();
+    }
+});
 
 
 app.get('/*', (req, res) => {

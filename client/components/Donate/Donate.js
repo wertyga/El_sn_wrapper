@@ -2,6 +2,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 
 import Loading from '../common/Loading/Loading';
+import Modal from '../common/Modal/Modal';
 
 import './Donate.sass';
 
@@ -13,13 +14,13 @@ class Donate extends React.Component {
             value: '',
             showModal: false,
             loading: false,
-            errors: ''
+            errors: this.props.globalErrors || ''
         };
     };
 
     componentDidMount() {
-        if(this.props.match.path === '/donate/success/:fiatDonate') {
-            this.setState({ showModal: true })
+        if(this.props.match.path === '/donate/success/:fiatDonate' && !this.state.errors) {
+            setTimeout(() =>  this.setState({ showModal: true }), 300)
         };
     };
 
@@ -64,15 +65,23 @@ class Donate extends React.Component {
             <div className="modal">
                 <p>Your donate have been received!</p>
                 <p>We'll do the best we can!</p>
-                <button className="btn primary" onClick={() => this.setState({ showModal: false })}>ok</button>
+                <button className="btn primary" onClick={() => this.setState({ showModal: false })}>O.K.</button>
             </div>
         );
 
         return (
             <div className="Donate">
-                <Loading show={this.state.loading}/>
-                {this.state.showModal && !this.state.errors && modal}
                 {this.state.errors && <div className="error">{this.state.errors || this.props.globalErrors}</div>}
+                <Loading show={this.state.loading}/>
+
+                    <Modal
+                        showModal={this.state.showModal}
+                    >
+                        <p>Your donate have been received!</p>
+                        <p>We'll do the best we can!</p>
+                        <button className="btn primary" onClick={() => this.setState({ showModal: false })}>O.K.</button>
+                    </Modal>
+
                 <div className="btc_donate">
                     <h4>Support project by Cryptocurrency:</h4>
                     <p>BTC wallet: <span> 18ikPNYocCZxkpUGdubhHuF9wuE4w4tpyt</span></p>

@@ -63,6 +63,9 @@ routes.get('/success/:fiatDonate', (req, res, next) => {
     const payerID = req.query.PayerID;
     const paymentID = req.query.paymentId;
     const fiatDonate = req.params.fiatDonate;
+    if(!payerID || !paymentID) {
+        return next();
+    };
 
     const execute_payment_json = {
         "payer_id": payerID,
@@ -76,12 +79,9 @@ routes.get('/success/:fiatDonate', (req, res, next) => {
 
     paypal.payment.execute(paymentID, execute_payment_json, function (err, payment) {
         if (err) {
-            console.log(err.response.name);
-            next(err.response.name)
-            // res.send(renderHTML(req, <App />, { globalErrors: err.response.name }))
+            return next({ donateError: err.response.name})
         } else {
-            next()
-            // res.send(renderHTML(req, <App />, { payment }))
+            return next()
         }
     });
 

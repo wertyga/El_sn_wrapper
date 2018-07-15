@@ -65,9 +65,11 @@ export default class Transition extends React.Component {
                 ref={node => this.mainRef = node}
                 style={{
                     display: !this.state.show && 'none',
+                    margin: 0,
+                    padding: 0,
                     ...addStyles
                 }}
-                className="Wc_Transition"
+                className="We_Transition"
             >
                 {this.props.children}
             </div>

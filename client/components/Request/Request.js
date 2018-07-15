@@ -3,21 +3,9 @@ import { request } from '../../actions/fetch';
 import validateInput from '../../../server/common/functions/inputsValidation';
 
 import Loading from '../common/Loading/Loading';
-import Transition from '../common/Transition/Transition';
+import Modal from '../common/Modal/Modal';
 
 import './Request.sass';
-
-const Modal = props => {
-    return (
-        React.createPortal(
-            <div className="Modal">
-                <p>Your request has been send</p>
-                <button className="btn primary">ok</button>
-            </div>,
-            document.getElementsByClassName('Request')[0]
-        )
-    );
-};
 
 class Request extends React.Component {
     constructor(props) {
@@ -83,13 +71,13 @@ class Request extends React.Component {
 
                 <Loading show={this.state.loading}/>
 
-                <Transition
-                    show={this.state.showModal}
-                    enter={enterModal}
-                    leave={leaveModal}
+                <Modal
+                    showModal={this.state.showModal}
                 >
-                    {modal}
-                </Transition>
+                    <p>Your request has been send</p>
+                    <button className="btn primary" onClick={() => this.setState({ showModal: false })}>O.K.</button>
+                </Modal>
+
                 <form onSubmit={this.onSubmit} className="content">
                     {this.state.errors.globalError && <div className="error">{this.state.errors.globalError}</div>}
 

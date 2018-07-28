@@ -1,27 +1,14 @@
 import path from 'path';
 import fs from 'fs';
+import archiver from 'archiver';
 
 const routes = require('express').Router();
 
 routes.get('/:sys', (req, res) => {
-    const { sys } = req.params;
-    const filePath = path.join(__dirname, `../../downloads/crypto_signer-${sys}-x64.zip`);
+    const fileName = `crypto_signer-${req.params.sys}-x64.zip`;
+    const file = path.join(__dirname, '..', 'downloads', fileName);
 
-    // res.download(filePath, `crypto_signer-${sys}-x64.zip`, err => {
-    //     if(err) {
-    //         res.status(500).json({ errors: err.message })
-    //     }
-    // });
-
-    const rs = fs.createReadStream(filePath);
-
-    rs.on('error', err => {
-        res.status(500).json({ errors: err.message });
-        rs.close();
-    })
-
-    rs.pipe(res)
-
+    res.download(file, fileName)
 });
 
 

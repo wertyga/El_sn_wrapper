@@ -38,25 +38,8 @@ export default class Download extends React.Component {
 
         const sys = e.currentTarget.getAttribute('data-download');
 
-        // window.open(`/downloads/${sys}`);
-        // return axios.get(`/downloads/${sys}`)
-        //     .catch(err => {
-        //         this.setState({ errors: err.response ? err.response.data.errors : err.message })
-        //     })
-
-        axios({
-            url: `/downloads/${sys}`,
-            method: 'GET',
-            responseType: 'blob', // important
-        }).then((res) => {
-            const url = window.URL.createObjectURL(new Blob([res.data]));
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', `Crypto_signer-${sys}-x64.zip`);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        });
+        const fileName = `crypto_signer-${e.currentTarget.getAttribute('data-download')}-x64.zip`;
+        window.open(`/downloads/${sys}`)
     };
 
     render() {
@@ -68,24 +51,24 @@ export default class Download extends React.Component {
                 <h2>Download</h2>
 
                     <div className="content">
-                        <a className="item" href="../../../downloads/crypto_signer-linux-x64.zip" data-download="linux" download>
+                        <div className="item" data-download="linux" onClick={this.download}>
                             <div className="image">
                                 <img src={linux_icon} alt="linux download"/>
                             </div>
                             <p>Linux x64 ZIP package</p>
-                        </a>
-                        <a className="item" href="../../../downloads/crypto_signer-win32-x64.zip" data-download="win32" download>
+                        </div>
+                        <div className="item" data-download="win32" onClick={this.download}>
                             <div className="image">
-                                <img src={windows_icon} alt="linux download"/>
+                                <img src={windows_icon} alt="win32 download"/>
                             </div>
                             <p>Windows x64 ZIP package</p>
-                        </a>
-                        <a className="item" href="../../../downloads/crypto_signer-darwin-x64.zip" data-download="darwin" download>
+                        </div>
+                        <div className="item" data-download="darwin" onClick={this.download}>
                             <div className="image">
-                                <img src={mac_icon} alt="linux download"/>
+                                <img src={mac_icon} alt="darwin download"/>
                             </div>
                             <p>MacOS x64 ZIP package</p>
-                        </a>
+                        </div>
                     </div>
 
             </div>

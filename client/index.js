@@ -9,6 +9,7 @@ import configureStore from './common/functions/configureStore';
 import './common/globals';
 
 import './styles/index.sass';
+import './styles/css/font-awesome.css';
 
 import favicon from '../icons/crypto_signer.png';
 

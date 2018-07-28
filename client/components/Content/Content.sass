@@ -19,16 +19,28 @@
     bottom: $paddingTop
     display: inline-flex
     justify-content: flex-end
-    padding: 30px
+    max-width: 5vw
+    max-height: 5vw
+    min-width: 50px
+    min-height: 50px
     background-color: $bgColor
     box-shadow: 0px 5px 10px rgba(0,0,0, .6)
     cursor: pointer
     border-radius: 50%
     transition: background-color .5s, transform .5s
+    i
+      color: #000
+      font-weight: bold
+      font-size: 30px
+      position: absolute
+      left: 32%
+      top: 22%
     &.last
       transform: rotate(180deg)
     &:hover
       background: $secondaryColor
+      i
+        color: $fontColorLight
       .angle
         border-right-color: $bgColor
         border-bottom-color: $bgColor
@@ -49,6 +61,10 @@
       margin-bottom: 30px
       img
         width: 100%
+
+    .image-modal
+      img
+        height: 100%
 
   .content
     p

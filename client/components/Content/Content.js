@@ -209,7 +209,8 @@ export default class Content extends React.Component {
 
                 <div className={classnames({ switch_mark: true, last: this.state.count === this.state.totalPages - 1})}
                      onClick={this.pagination}>
-                    <div className="angle"></div>
+                    {/*<div className="angle"></div>*/}
+                    <i className="fa fa-angle-double-down"></i>
                 </div>
             </div>
         );

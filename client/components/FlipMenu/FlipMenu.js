@@ -7,7 +7,7 @@ import './FlipMenu.sass';
 
 const menuItems = [
     {
-        title: 'Download product',
+        title: 'Downloads',
         to: '/download'
     },
     // {

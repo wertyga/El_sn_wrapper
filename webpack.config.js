@@ -11,7 +11,7 @@ const browserConfig = {
 
     output: {
         path: path.join(__dirname, 'public', 'static'),
-        publicPath:  '/',
+        publicPath:  '',
         filename: '[name].js'
     },
 
@@ -32,8 +32,8 @@ const browserConfig = {
             },
 
             {
-                test: /(.woff2|.woff|.eot|.ttf|.otf|.webp)$/,
-                loader: 'file-loader',
+                test: /(.woff2|.woff|.eot|.ttf|.otf|.svg)$/,
+                loader: 'url-loader',
                 options: {
                     name: "media/[name].[ext]",
                     publicPath: url => url.replace(/public/, "")
@@ -47,7 +47,7 @@ const browserConfig = {
             },
 
             {
-                test: /\.(gif|png|jpeg|jpg|svg)$/i,
+                test: /\.(gif|png|jpeg|jpg)$/i,
                 loaders: [
                     {
                         loader: 'file-loader',

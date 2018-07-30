@@ -85,9 +85,6 @@ const browserConfig = {
     },
 
     plugins: [
-        new ExtractTextPlugin({
-            filename: "css/main.css"
-        }),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.ProvidePlugin({

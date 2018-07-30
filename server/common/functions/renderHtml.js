@@ -21,7 +21,6 @@ export default (req, Component, state) => {
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1">
                 <title>Crypto Signer</title>
-                <link rel="stylesheet" href="/css/main.css">
                  <script>
                     window.__PRELOADED_STATE__ = ${JSON.stringify(store.getState()).replace(/</g, '\\\u003c')}
                 </script>

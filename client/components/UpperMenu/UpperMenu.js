@@ -41,10 +41,10 @@ export default class UpperMenu extends React.Component {
                     <span></span><span></span><span></span>
                 </div>
 
-                <FlipMenu
-                    showMenu={this.state.showMenu}
-                    setShowMenu={this.setShowMenu}
-                />
+                    <FlipMenu
+                        showMenu={this.state.showMenu}
+                        setShowMenu={this.setShowMenu}
+                    />
             </div>
         );
     };

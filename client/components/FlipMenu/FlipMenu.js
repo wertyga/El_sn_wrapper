@@ -56,7 +56,12 @@ export default class FlipMenu extends React.Component {
 
     render() {
         return (
-                <ul className={classnames({ FlipMenu: true, open: this.props.showMenu })} ref={node => this.mainRef = node}>
+                <ul className={classnames({ FlipMenu: true, open: this.props.showMenu })}
+                    ref={node => this.mainRef = node}
+                    style={{
+                        zIndex: this.props.showMenu ? 1 : -1
+                    }}
+                >
                     {menuItems.map((item, i) => (
                         <li key={item.title}
                             style={{ transitionDelay: `${i * 100}ms` }}

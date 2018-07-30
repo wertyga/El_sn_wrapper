@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import Loading from '../common/Loading/Loading';
 import Modal from '../common/Modal/Modal';
 
+import payPalLogo from '../../../icons/paypal.png';
+import btcLogo from '../../../icons/btc.png';
+
 import './Donate.sass';
 
 class Donate extends React.Component {
@@ -84,19 +87,21 @@ class Donate extends React.Component {
 
                 <div className="btc_donate">
                     <h4>Support project by Cryptocurrency:</h4>
-                    <p>BTC wallet: <span> 18ikPNYocCZxkpUGdubhHuF9wuE4w4tpyt</span></p>
+                    <div className="crypto_donate"><img src={btcLogo} alt="btc-logo"/><strong> 18ikPNYocCZxkpUGdubhHuF9wuE4w4tpyt</strong></div>
                 </div>
                 <div className="fiat_donate">
-                    <h4>Support project by fiat with PayPal:</h4>
-                    <form onSubmit={this.onSubmit}>
-                        <h5>Amount donate:</h5>
-                        <input type="text"
-                               value={this.state.value}
-                               onChange={this.onChange}
-                        />
-                        <span> .$</span>
-                        <button className="btn primary" disabled={this.state.loading}>Donate</button>
-                    </form>
+                    <h4>Support project by fiat with:</h4>
+                    <div className="pay_block">
+                        <img src={payPalLogo} alt="pay-pal"/>
+                        <form onSubmit={this.onSubmit}>
+                            <input type="text"
+                                   value={this.state.value}
+                                   onChange={this.onChange}
+                            />
+                            <span> .$</span>
+                            <button className="btn primary" disabled={this.state.loading}>Donate</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         );

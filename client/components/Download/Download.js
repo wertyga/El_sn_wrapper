@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import linux_icon from '../../../icons/linux.png';
 import windows_icon from '../../../icons/windows.png';
 import mac_icon from '../../../icons/mac.png';

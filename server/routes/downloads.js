@@ -1,6 +1,4 @@
 import path from 'path';
-import fs from 'fs';
-import archiver from 'archiver';
 
 const routes = require('express').Router();
 
